@@ -1,4 +1,4 @@
-import { render } from 'lit-html';
+import { render, TemplateResult, defaultTemplateProcessor } from 'lit-html';
 import { toKebabCase, tryParseInt } from './utils';
 
 const copyProps = (element, props) => {
@@ -6,9 +6,13 @@ const copyProps = (element, props) => {
     const propName = toKebabCase(prop);
     Object.defineProperty(element, prop, {
       get() { return element.values.get(propName) },
-      set(value) { this.setAttribute(propName, value) }
+      set(value) { 
+        this.values.set(propName, tryParseInt(value))
+        this.setAttribute(propName, value) 
+      }
     })
-    element.setAttribute(propName, props[prop])
+    element.values.set(propName, tryParseInt(props[prop]))
+    element.setAttribute(propName, element.values.get(propName))
   }
 }
 
@@ -20,6 +24,13 @@ const initProps = (target) => {
   }
   return props;
 }
+
+const renderTemplate = (element: any) => {
+  render((element as any).render(), element.shadowRoot)
+}
+
+export const template = (strings, ...values) => 
+  new TemplateResult(strings, values, 'html', defaultTemplateProcessor)
 
 export class LitCustomElement extends HTMLElement {
 
@@ -33,25 +44,15 @@ export class LitCustomElement extends HTMLElement {
 
   attributeChangedCallback(name: string, oldValue: any, newValue: any) {
     if (oldValue !== newValue) {
-      this.__render();
+      renderTemplate(this)
     }
-  }
-
-  setAttribute(qualifiedName, value) {
-    this.values.set(qualifiedName, tryParseInt(value));
-    super.setAttribute(qualifiedName, this.values.get(qualifiedName))
   }
 
   connectedCallback() {
     this.attachShadow({ mode: 'open' })
     
-    this.__render()
+    renderTemplate(this)
     copyProps(this, initProps(this))
-  }
-
-  __render() {
-    const template = (this as any).render();
-    render(template, this.shadowRoot)
   }
 
 }

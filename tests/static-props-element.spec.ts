@@ -1,18 +1,17 @@
-import { LitCustomElement } from 'lit-custom-element';
-import { html } from 'lit-html';
+import { LitCustomElement, template } from 'lit-custom-element';
 
 class StaticPropsElement extends LitCustomElement {
 
   message;
 
   static get props() {
-    return {
+    return {  
       message: 'World'
     }
   }
 
   render() {
-    return html `
+    return template `
       <h1>Hello ${this.message}</h1>
     `
   }

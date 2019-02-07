@@ -1,13 +1,13 @@
-import { html } from 'lit-html';
-import { LitCustomElement, Prop } from 'lit-custom-element';
+import { LitCustomElement, Prop, template } from 'lit-custom-element';
 
 class DecoratorPropsElement extends LitCustomElement {
 
   @Prop() name = 'Jane';
+  @Prop() age = 18;
 
   render() {
-    return html `
-      <h1>Hello ${this.name}</h1>
+    return template `
+      <h1>Name: ${this.name}, age: ${this.age}</h1>
     `
   }
 
@@ -33,6 +33,10 @@ describe('DecoratorPropsElement', () => {
 
   it('should have attribute [name]', () => {
     expect(element.hasAttribute('name')).toBeTruthy;
+  })
+
+  it('should parse the prop into int.', () => {
+    expect(typeof element.age == 'number').toBeTruthy
   })
 
   it('should reflect as attribute.', () => {
