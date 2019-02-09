@@ -28,15 +28,21 @@ describe('DecoratorPropsElement', () => {
   })  
 
   it('should have <decorator-props></decorator-props> element.', () => {
-    expect(element).toBeDefined;
+    expect(element).toBeDefined();
   })
 
-  it('should have attribute [name]', () => {
-    expect(element.hasAttribute('name')).toBeTruthy;
+  it('should have attribute [name] and [age]', () => {
+    expect(element.hasAttribute('name')).toBeTruthy();
+    expect(element.hasAttribute('age')).toBeTruthy();
+  })
+
+  it('should initialize attribute and property to default value.', () => {
+    expect(element.getAttribute('name')).toEqual('Jane')
+    expect(element.hasAttribute('age')).toBeTruthy(18);
   })
 
   it('should parse the prop into int.', () => {
-    expect(typeof element.age == 'number').toBeTruthy
+    expect(typeof element.age == 'number').toBeTruthy()
   })
 
   it('should reflect as attribute.', () => {

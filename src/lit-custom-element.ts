@@ -1,28 +1,13 @@
 import { render, TemplateResult, defaultTemplateProcessor } from 'lit-html';
-import { toKebabCase, tryParseInt } from './utils';
-
-const copyProps = (element, props) => {
-  for (const prop of Object.keys(props)) {
-    const propName = toKebabCase(prop);
-    Object.defineProperty(element, prop, {
-      get() { return element.values.get(propName) },
-      set(value) { 
-        this.values.set(propName, tryParseInt(value))
-        this.setAttribute(propName, value) 
-      }
-    })
-    element.values.set(propName, tryParseInt(props[prop]))
-    element.setAttribute(propName, element.values.get(propName))
-  }
-}
+import { toKebabCase, tryParseValue } from './utils';
 
 const initProps = (target) => {
   const props = (target.constructor as any).props || {};
   const decorators = (target.constructor as any).propDecorators;
-  for (const prop of Object.keys(decorators)) {
-    props[prop] = target[prop];
+  for(const prop of Object.keys(decorators)) {
+    decorators[prop] = target[prop];
   }
-  return props;
+  return { ...props, ...decorators };
 }
 
 const renderTemplate = (element: any) => {
@@ -35,24 +20,46 @@ export const template = (strings, ...values) =>
 export class LitCustomElement extends HTMLElement {
 
   protected static propDecorators = {};
-  protected values = new Map()
+  protected values = new Map();
 
   static get observedAttributes() {
-    return Object.keys({ ...((this as any).props || {}), ...this.propDecorators })
+    return Object.keys({ ...(this.constructor as any).props, ...this.propDecorators })
       .map(prop => toKebabCase(prop));
+  }
+
+  constructor() {
+    super()
+    this.attachShadow({ mode: 'open' })
   }
 
   attributeChangedCallback(name: string, oldValue: any, newValue: any) {
     if (oldValue !== newValue) {
-      renderTemplate(this)
+      renderTemplate(this);
     }
   }
 
+  setAttribute(qualifiedName: string, value: string) {
+    this.values.set(qualifiedName, tryParseValue(value))
+    super.setAttribute(qualifiedName, this.values.get(qualifiedName))
+  }
+
   connectedCallback() {
-    this.attachShadow({ mode: 'open' })
-    
-    renderTemplate(this)
-    copyProps(this, initProps(this))
+    const props = initProps(this);
+
+    for (const prop of Object.keys(props)) {
+      const propName = toKebabCase(prop);
+      Object.defineProperty(this, prop, {
+        get() { return this.values.get(propName) },
+        set(value) { this.setAttribute(propName, value) }
+      })
+      if (this.hasAttribute(propName)) {
+        this.setAttribute(propName, this.getAttribute(propName)) 
+      } else {
+        this.setAttribute(propName, props[prop])
+      }
+    }
+
+    renderTemplate(this);
   }
 
 }

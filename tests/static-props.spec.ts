@@ -33,15 +33,15 @@ describe('StaticPropsElement', () => {
   })  
 
   it('should have <static-props></static-props> element.', () => {
-    expect(element).toBeDefined;
+    expect(element).toBeDefined();
   })
 
   it('should have shadowRoot.', () => {
-    expect(element.shadowRoot).toBeDefined;
+    expect(element.shadowRoot).toBeDefined();
   })
 
   it('should have attribute [message]', () => {
-    expect(element.hasAttribute('message')).toBeTruthy;
+    expect(element.hasAttribute('message')).toBeTruthy();
   })
 
   it('should have initial value.', () => {
