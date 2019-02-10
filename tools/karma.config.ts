@@ -2,10 +2,11 @@ import es6Transform from './es6-transform';
  
  export default function karmaConfig(config) {
   config.set({
+    basePath: '../',
+
     frameworks: [ 'jasmine', 'karma-typescript' ],
     
     files: [
-      { pattern: 'base.spec.ts' },
       { pattern: 'src/**/*.ts' },
       { pattern: 'tests/**/*.ts' }
     ],
@@ -23,7 +24,22 @@ import es6Transform from './es6-transform';
         entrypoints: /\.spec\.ts$/,
         transforms: [ es6Transform({}) ]
       },
-      tsconfig: './tsconfig.json',
+      compilerOptions: {
+        baseUrl: ".",
+        emitDecoratorMetadata: true,
+        experimentalDecorators: true,
+        module: "commonjs",
+        moduleResolution: "node",
+        target: "es2015",
+        paths: {
+          "lit-custom-element": [ "src/index" ]
+        },
+        lib :[
+          "dom",
+          "es2015",
+          "es2017"
+        ]
+      },
       coverageOptions: {
         exclude: /((.*\.(spec|module))|index)\.ts/
       },
@@ -32,7 +48,11 @@ import es6Transform from './es6-transform';
           "directory": "coverage",
           "subdirectory": "."
         },
-        "text-summary": ""
+        "text-summary": "",
+        'lcovonly': {
+          'directory': 'coverage',
+          'subdirectory': '.'
+        }
       },
     }, 
     

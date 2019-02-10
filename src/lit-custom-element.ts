@@ -1,4 +1,4 @@
-import { render, TemplateResult, defaultTemplateProcessor } from 'lit-html';
+import { render, html, TemplateResult, defaultTemplateProcessor } from 'lit-html';
 import { toKebabCase, tryParseValue } from './utils';
 
 const initProps = (target) => {
@@ -13,6 +13,8 @@ const initProps = (target) => {
 const renderTemplate = (element: any) => {
   render((element as any).render(), element.shadowRoot)
 }
+
+export { html }
 
 export const template = (strings, ...values) => 
   new TemplateResult(strings, values, 'html', defaultTemplateProcessor)

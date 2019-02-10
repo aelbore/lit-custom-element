@@ -1,4 +1,4 @@
-import { LitCustomElement, template, tryParseValue } from 'lit-custom-element';
+import { LitCustomElement, template } from 'lit-custom-element';
 
 class BooleanProps extends LitCustomElement {
 

@@ -1,6 +1,6 @@
 import { LitCustomElement, Prop, template } from 'lit-custom-element';
 
-class Counter extends LitCustomElement  {
+export class Counter extends LitCustomElement  {
 
   @Prop() count = 0;
 
@@ -33,6 +33,3 @@ class Counter extends LitCustomElement  {
   }
 
 }
-
-customElements.define('ar-counter', Counter)
-

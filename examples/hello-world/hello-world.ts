@@ -1,7 +1,6 @@
-import { html } from 'lit-html';
-import { LitCustomElement } from 'lit-custom-element';
+import { LitCustomElement, template } from 'lit-custom-element';
 
-class HelloWorld extends LitCustomElement  {
+export class HelloWorld extends LitCustomElement  {
 
   message;
 
@@ -12,10 +11,8 @@ class HelloWorld extends LitCustomElement  {
   }
 
   render() {
-    return html `<h1>Hello ${this.message}</h1>`
+    return template `<h1>Hello ${this.message}</h1>`
   }
 
 }
-
-customElements.define('hello-world', HelloWorld)
 
