@@ -8,6 +8,6 @@ branches:
 install: 
   - npm install
 script:
-  - npm test
+  - npm run bundle && npm test
 after_success:
   - npm run coveralls
