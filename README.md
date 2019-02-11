@@ -1,4 +1,5 @@
 [![Coverage Status](https://coveralls.io/repos/github/aelbore/lit-custom-element/badge.svg?branch=master&service=github)](https://coveralls.io/github/aelbore/lit-custom-element?branch=master)
+[![Build Status](https://travis-ci.com/aelbore/lit-custom-element.svg?branch=master)](https://travis-ci.com/aelbore/lit-custom-element)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 # lit-custom-element
