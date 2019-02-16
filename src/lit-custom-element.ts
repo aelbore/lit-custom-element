@@ -14,6 +14,17 @@ const renderTemplate = (element: any) => {
   render((element as any).render(), element.shadowRoot)
 }
 
+const autoBind = (element) => {
+  const proto = element.constructor.prototype;
+  const propertyNames = Object.getOwnPropertyNames(proto)
+          .filter(s => (typeof element[s] == 'function' ))
+          .filter(key => !/^(prototype|name|constructor|render|connectedCallback|attributeChangedCallback)$/.test(key))
+
+  for (const prop of propertyNames) {
+    element[prop] = element[prop].bind(element)
+  }
+}
+
 export { html }
 
 export const template = (strings, ...values) => 
@@ -32,6 +43,8 @@ export class LitCustomElement extends HTMLElement {
   constructor() {
     super()
     this.attachShadow({ mode: 'open' })
+
+    autoBind(this)
   }
 
   attributeChangedCallback(name: string, oldValue: any, newValue: any) {
@@ -61,7 +74,7 @@ export class LitCustomElement extends HTMLElement {
       }
     }
 
-    renderTemplate(this);
+    renderTemplate(this);    
   }
 
 }
