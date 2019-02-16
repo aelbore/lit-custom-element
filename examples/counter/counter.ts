@@ -26,7 +26,7 @@ export class Counter extends LitCustomElement  {
           cursor: pointer;
         }  
       </style>  
-      <button id="count" @click=${this.incrementCount.bind(this)}>
+      <button id="count" @click=${this.incrementCount}>
         ${this.count}
       </button>
     `
