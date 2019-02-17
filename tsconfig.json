@@ -8,10 +8,5 @@
       "lit-custom-element": [ "src/index" ],
       "lit-html": [ "node_modules/lit-html/lit-html" ]
     }
-  },
-  "include": [
-    "src/**/*.ts",
-    "examples/**/*.ts",
-    "tests/**/*.ts"
-  ]
+  }
 }
