@@ -1,8 +1,12 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2015",
     "paths": {
-      "lit-custom-element": [ "src/index" ]
+      "lit-custom-element": [ "src/index" ],
+      "lit-html": [ "node_modules/lit-html/lit-html" ]
     }
   }
 }
