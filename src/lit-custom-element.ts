@@ -1,5 +1,5 @@
 import { render, html, TemplateResult, defaultTemplateProcessor } from 'lit-html';
-import { toKebabCase, tryParseValue, initProps, autoBind } from './utils';
+import { toKebabCase, tryParseValue, initProps, autoBind, getSetProps } from './utils';
 
 const renderTemplate = (element: any) => {
   render((element as any).render(), element.shadowRoot)
@@ -13,10 +13,12 @@ export const template = (strings, ...values) =>
 export class LitCustomElement extends HTMLElement {
 
   protected static propDecorators = {};
+  protected static fieldProps = {};
   protected values = new Map();
 
   static get observedAttributes() {
-    return Object.keys({ ...(this.constructor as any).props, ...this.propDecorators })
+    this.fieldProps = { ...getSetProps(this) }
+    return Object.keys({ ...(this.constructor as any).props, ...this.propDecorators, ...this.fieldProps })
       .map(prop => toKebabCase(prop));
   }
 
@@ -28,6 +30,7 @@ export class LitCustomElement extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: any, newValue: any) {
+    oldValue = tryParseValue(oldValue), newValue = tryParseValue(newValue)
     if (oldValue !== newValue) {
       renderTemplate(this);
     }
