@@ -1,28 +1,8 @@
 import { render, html, TemplateResult, defaultTemplateProcessor } from 'lit-html';
-import { toKebabCase, tryParseValue } from './utils';
-
-const initProps = (target) => {
-  const props = (target.constructor as any).props || {};
-  const decorators = (target.constructor as any).propDecorators;
-  for(const prop of Object.keys(decorators)) {
-    decorators[prop] = target[prop];
-  }
-  return { ...props, ...decorators };
-}
+import { toKebabCase, tryParseValue, initProps, autoBind } from './utils';
 
 const renderTemplate = (element: any) => {
   render((element as any).render(), element.shadowRoot)
-}
-
-const autoBind = (element) => {
-  const proto = element.constructor.prototype;
-  const propertyNames = Object.getOwnPropertyNames(proto)
-          .filter(s => (typeof element[s] == 'function' ))
-          .filter(key => !/^(prototype|name|constructor|render|connectedCallback|attributeChangedCallback)$/.test(key))
-
-  for (const prop of propertyNames) {
-    element[prop] = element[prop].bind(element)
-  }
 }
 
 export { html }
