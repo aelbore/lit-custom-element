@@ -2,6 +2,16 @@ export const tryParseInt = (value: any) => {
   return (parseInt(value) == value && parseFloat(value) !== NaN) ? parseInt(value) : value;
 }
 
+export const getSetProps = (target) => {
+  return Object.getOwnPropertyNames(target.constructor.prototype)
+          .filter(s => (typeof target[s] != 'function' ))
+          .filter(key => !/^(|length|arguments|caller)$/.test(key))
+          .reduce((acc, cur, i) => {
+            acc[cur] = null;
+            return acc;
+          }, {})
+}
+
 export const initProps = (target) => {
   const props = (target.constructor as any).props || {};
   const decorators = (target.constructor as any).propDecorators;
