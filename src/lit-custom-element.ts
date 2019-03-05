@@ -41,8 +41,26 @@ export class LitCustomElement extends HTMLElement {
     super.setAttribute(qualifiedName, this.values.get(qualifiedName))
   }
 
+  propertyChanged(prop, attribute = true) {
+    if (attribute && this[prop]) {
+      this.setAttribute(prop, this[prop])
+    }   
+  }
+
+  onPropertyChanged(propName: string, attribute = true) {
+    if (this.values.get(propName) !== this[propName]) { 
+      this.values.set(propName, tryParseValue(this[propName]))
+      renderTemplate(this)
+    }
+  }
+
   connectedCallback() {
     const props = initProps(this);
+
+    /// @ts-ignore
+    this.initPropAccessors &&
+      /// @ts-ignore
+      this.initPropAccessors(Object.keys(this.constructor.fieldProps))      
 
     for (const prop of Object.keys(props)) {
       const propName = toKebabCase(prop);
