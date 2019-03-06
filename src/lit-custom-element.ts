@@ -1,28 +1,8 @@
 import { render, html, TemplateResult, defaultTemplateProcessor } from 'lit-html';
-import { toKebabCase, tryParseValue } from './utils';
-
-const initProps = (target) => {
-  const props = (target.constructor as any).props || {};
-  const decorators = (target.constructor as any).propDecorators;
-  for(const prop of Object.keys(decorators)) {
-    decorators[prop] = target[prop];
-  }
-  return { ...props, ...decorators };
-}
+import { toKebabCase, tryParseValue, initProps, autoBind, getSetProps } from './utils';
 
 const renderTemplate = (element: any) => {
   render((element as any).render(), element.shadowRoot)
-}
-
-const autoBind = (element) => {
-  const proto = element.constructor.prototype;
-  const propertyNames = Object.getOwnPropertyNames(proto)
-          .filter(s => (typeof element[s] == 'function' ))
-          .filter(key => !/^(prototype|name|constructor|render|connectedCallback|attributeChangedCallback)$/.test(key))
-
-  for (const prop of propertyNames) {
-    element[prop] = element[prop].bind(element)
-  }
 }
 
 export { html }
@@ -33,10 +13,12 @@ export const template = (strings, ...values) =>
 export class LitCustomElement extends HTMLElement {
 
   protected static propDecorators = {};
+  protected static fieldProps = {};
   protected values = new Map();
 
   static get observedAttributes() {
-    return Object.keys({ ...(this.constructor as any).props, ...this.propDecorators })
+    this.fieldProps = { ...getSetProps(this) }
+    return Object.keys({ ...(this.constructor as any).props, ...this.propDecorators, ...this.fieldProps })
       .map(prop => toKebabCase(prop));
   }
 
@@ -48,8 +30,12 @@ export class LitCustomElement extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: any, newValue: any) {
+    oldValue = tryParseValue(oldValue), newValue = tryParseValue(newValue)
     if (oldValue !== newValue) {
-      renderTemplate(this);
+      if (this[name] !== newValue) {
+        this[name] = newValue
+      }
+      renderTemplate(this)
     }
   }
 
@@ -58,8 +44,41 @@ export class LitCustomElement extends HTMLElement {
     super.setAttribute(qualifiedName, this.values.get(qualifiedName))
   }
 
+  propertyChanged(prop: string, attribute: boolean = true) {
+    const descriptor = Object.getOwnPropertyDescriptor(this.constructor.prototype, prop)
+    Object.defineProperty(this, prop, { 
+      ...descriptor, 
+      get() {
+        return descriptor.get.call(this)
+      },
+      set(value) {
+        descriptor.set.call(this, value)
+        this.onPropertyChanged(prop, attribute)
+      }
+    })  
+    if (attribute && this[prop]) {
+      this.setAttribute(prop, this[prop])
+    }   
+  }
+
+  onPropertyChanged(propName: string, attribute?: boolean) {
+    const propValue = tryParseValue(this[propName])
+    if (this.values.get(propName) !== propValue) { 
+      this.values.set(propName, propValue)
+      if (attribute) {
+        super.setAttribute(propName, propValue)
+      } 
+      renderTemplate(this)
+    }
+  }
+
   connectedCallback() {
     const props = initProps(this);
+
+    /// @ts-ignore
+    this.initPropAccessors &&
+      /// @ts-ignore
+      this.initPropAccessors(Object.keys(this.constructor.fieldProps))      
 
     for (const prop of Object.keys(props)) {
       const propName = toKebabCase(prop);
