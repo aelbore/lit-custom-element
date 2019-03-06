@@ -5,6 +5,7 @@
   "main": "lit-custom-element.js",
   "module": "lit-custom-element.es.js",
   "scripts": {
+    "aria": "aria",
     "build.tools": "ts-node --project tools/tsconfig.json ./node_modules/aria-tools/build.ts",
     "build.demo": "ts-node --project tools/tsconfig.json tools/build-demo.ts",
     "bundle": "ts-node --project tools/tsconfig.json tools/bundle.ts",
@@ -31,14 +32,14 @@
   "homepage": "https://github.com/aelbore/lit-custom-element#readme",
   "typings": "lit-custom-element.d.ts",
   "devDependencies": {
-    "aria-tools": "https://github.com/aelbore/aria-tools.git",
+    "aria-tools": "0.0.3",
     "@types/express": "^4.16.1",
     "@types/jasmine": "^3.3.9",
     "@types/karma": "^3.0.2",
-    "@types/node": "^11.9.4",
-    "coveralls": "^3.0.2",
+    "@types/node": "^11.10.4",
+    "coveralls": "^3.0.3",
     "magic-string": "^0.25.2",
-    "typescript": "^3.3.3"
+    "typescript": "^3.3.3333"
   },
   "dependencies": {
     "lit-html": "^1.0.0"

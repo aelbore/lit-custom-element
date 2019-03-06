@@ -16,7 +16,6 @@ class GetSetProps extends LitCustomElement {
 
   set name(value) {
     this._name = value
-    this.onPropertyChanged('name')
   }
 
   render() {
@@ -29,6 +28,14 @@ customElements.define('get-set-props', GetSetProps)
 
 describe('GetSetProps', () => {
   let element;
+
+  const createElement = () => {
+    const template = document.createElement('template')
+    template.innerHTML = `<get-set-props name="Jane"></get-set-props>`
+    document.body.appendChild(template.content.cloneNode(true))
+  
+    return document.querySelector('get-set-props');
+  }
 
   beforeEach(() => {
     element = document.createElement('get-set-props')
@@ -63,6 +70,19 @@ describe('GetSetProps', () => {
     expect(oldValue).toEqual(newValue)
     expect(oldValue).toEqual('<h1>Hello Maria</h1>')
     expect(newValue).toEqual('<h1>Hello Maria</h1>')
+  })
+
+  it('should set the property when attribute changed', () => {
+    element.setAttribute('name', 'Maria')
+    expect(element.name).toEqual(element.getAttribute('name'))
+  })
+
+  it('should set the property when attribute initialize.', () => {
+    document.body.removeChild(element)
+
+    element = createElement()
+
+    expect(element.name).toEqual(element.getAttribute('name'))
   })
 
 })

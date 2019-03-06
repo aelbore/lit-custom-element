@@ -32,7 +32,10 @@ export class LitCustomElement extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: any, newValue: any) {
     oldValue = tryParseValue(oldValue), newValue = tryParseValue(newValue)
     if (oldValue !== newValue) {
-      renderTemplate(this);
+      if (this[name] !== newValue) {
+        this[name] = newValue
+      }
+      renderTemplate(this)
     }
   }
 
@@ -41,15 +44,30 @@ export class LitCustomElement extends HTMLElement {
     super.setAttribute(qualifiedName, this.values.get(qualifiedName))
   }
 
-  propertyChanged(prop, attribute = true) {
+  propertyChanged(prop: string, attribute: boolean = true) {
+    const descriptor = Object.getOwnPropertyDescriptor(this.constructor.prototype, prop)
+    Object.defineProperty(this, prop, { 
+      ...descriptor, 
+      get() {
+        return descriptor.get.call(this)
+      },
+      set(value) {
+        descriptor.set.call(this, value)
+        this.onPropertyChanged(prop, attribute)
+      }
+    })  
     if (attribute && this[prop]) {
       this.setAttribute(prop, this[prop])
     }   
   }
 
-  onPropertyChanged(propName: string, attribute = true) {
-    if (this.values.get(propName) !== this[propName]) { 
-      this.values.set(propName, tryParseValue(this[propName]))
+  onPropertyChanged(propName: string, attribute?: boolean) {
+    const propValue = tryParseValue(this[propName])
+    if (this.values.get(propName) !== propValue) { 
+      this.values.set(propName, propValue)
+      if (attribute) {
+        super.setAttribute(propName, propValue)
+      } 
       renderTemplate(this)
     }
   }
