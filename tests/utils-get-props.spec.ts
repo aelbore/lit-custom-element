@@ -17,7 +17,7 @@ class GetPropsSpec {
 describe('GetPropsSpec', () => {
 
   it('should get the props.', () => {
-    const props = getSetProps(GetPropsSpec.prototype)
+    const props = getSetProps(GetPropsSpec)
     expect(Object.keys(props)).toEqual([ 'name' ])
   })
 

@@ -3,8 +3,9 @@ export const tryParseInt = (value: any) => {
 }
 
 export const getSetProps = (target) => {
-  return Object.getOwnPropertyNames(target.constructor.prototype)
-          .filter(s => (typeof target[s] != 'function' ))
+  const proto = target.prototype;
+  return Object.getOwnPropertyNames(proto)
+          .filter(s => (typeof proto[s] != 'function'))
           .filter(key => !/^(|length|arguments|caller)$/.test(key))
           .reduce((acc, cur, i) => {
             acc[cur] = null;
