@@ -1,3 +1,3 @@
-import { SelectElement } from './select'
-
-customElements.define('ar-select', SelectElement)
+export * from './select-input'
+export * from './select-option'
+export * from './select'

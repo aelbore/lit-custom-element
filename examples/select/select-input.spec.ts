@@ -5,6 +5,14 @@ import { tryParseValue } from 'lit-custom-element';
 describe('SelectInput', () => {
   let element: any;
 
+  const createElement = () => {
+    const template = document.createElement('template')
+    template.innerHTML = `<ar-select-input value="Orange" placeholder="Search"></ar-select-input>`
+    document.body.appendChild(template.content.cloneNode(true))
+  
+    return document.querySelector('ar-select-input');
+  }  
+
   beforeEach(() => {
     element = document.createElement('ar-select-input')
     document.body.appendChild(element)
@@ -36,7 +44,7 @@ describe('SelectInput', () => {
     expect(element.getAttribute('value')).toEqual('Orange')
   })
 
-  it('should reflect to property  when [value] attribute set', () => {
+  it('should reflect to property when [value] attribute set', () => {
     element.setAttribute('value', 'Orange')
 
     expect(element.value).toEqual('Orange')
@@ -54,6 +62,17 @@ describe('SelectInput', () => {
     expect(element.placeholder).toEqual('Search')
   })
 
+  it('should clear the value when icon x is click.', () => {
+    document.body.removeChild(element)
+
+    element = createElement()
+    const oldValue = element.getAttribute('value')
+
+    element.shadowRoot.querySelector('a').click()
+
+    expect(element.value).not.toEqual(oldValue)
+    expect(element.value).toEqual('')
+  })
 
 
 })

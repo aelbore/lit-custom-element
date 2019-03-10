@@ -2,8 +2,8 @@ import { LitCustomElement, html } from 'lit-custom-element'
 
 class SelectOption extends LitCustomElement {
 
-  private _selected: boolean;
-  private _value: any;
+  private _value;
+  private _selected;
 
   constructor() {
     super()
@@ -35,7 +35,7 @@ class SelectOption extends LitCustomElement {
       detail: {
         label: this.innerHTML.trim(),
         value: this.value,
-        selected: this.selected
+        selected: this.selected || false
       }
     }))
   }
@@ -46,20 +46,21 @@ class SelectOption extends LitCustomElement {
         .ar-select-option-item {
           line-height: 35px;
           margin: 0;
-          padding: 0 10px;
+          padding: 0 15px;
           cursor: pointer;
-          border-bottom: thin solid #d6d6d6;
-          font-size: 14px;
+          border-bottom: thin solid #ccc;
+          font-size: 0.90em;
+          font-family: Arial, Helvetica, sans-serif;
         }
         .ar-select-option-item:hover {
-          border-bottom: 1px solid #69be28;
-          background-color: #f4feec;
-          color: #3f9c35;
+          border-bottom-color: #1668d3;
+          background-color: #1668d3;
+          color: #fff;
         }
         .ar-select-option-item.active {
-          cursor: auto;
-          background-color: #69be28;
-          color: #fff;
+          border-bottom-color: #0A3874;
+          background-color: #0A3874;
+          color:#FFF;
         }
       </style>
       <div class="ar-select-option-item ${this.selected ? 'active': ''}">
