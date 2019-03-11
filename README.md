@@ -4,3 +4,33 @@
 
 # lit-custom-element
 Lightweight library for building native web components
+
+Installation
+------------
+
+  ```
+    npm install lit-custom-element
+  ```
+
+```javascript
+  import { LitCustomElement, html } from 'lit-custom-element'
+
+  class HelloName extends LitCustomElement {
+
+    get name() {
+      return this._name
+    }
+
+    set name(value) {
+      this._name = value
+      this.onPropertyChanged('name', true)
+    }
+
+    render() {
+      return html `<h1>Hello ${this.name}!</h1>`
+    }
+
+  }
+
+  customElements.define('hello-name', HelloName)
+```
