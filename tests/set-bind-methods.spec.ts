@@ -1,4 +1,5 @@
-import { LitCustomElement, template, Prop } from 'lit-custom-element';
+import { LitCustomElement } from 'lit-custom-element';
+import { html } from 'lit-html';
 
 class Counter extends LitCustomElement  {
 
@@ -15,7 +16,7 @@ class Counter extends LitCustomElement  {
   }
 
   render() {
-    return template ` 
+    return html ` 
       <button id="count" @click=${this.incrementCount}>
         ${this.count}
       </button>

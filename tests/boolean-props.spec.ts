@@ -1,4 +1,5 @@
-import { LitCustomElement, template } from 'lit-custom-element';
+import { LitCustomElement } from 'lit-custom-element';
+import { html } from 'lit-html';
 
 class BooleanProps extends LitCustomElement {
 
@@ -11,7 +12,7 @@ class BooleanProps extends LitCustomElement {
   }
 
   render() {
-    return template `
+    return html `
       <div class="${ this.checked ? 'checked': '' }"></div>
     `
   }

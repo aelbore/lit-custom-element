@@ -1,14 +1,12 @@
-import { render, html, TemplateResult, defaultTemplateProcessor } from 'lit-html';
+import { render, html } from 'lit-html';
 import { toKebabCase, tryParseValue, initProps, autoBind, getSetProps } from './utils';
 
-const renderTemplate = (element: any) => {
-  render((element as any).render(), element.shadowRoot)
+const renderTemplate = (rootElement: HTMLElement | ShadowRoot) => {
+  /// @ts-ignore
+  render(rootElement.render(), rootElement.shadowRoot)
 }
 
 export { html }
-
-export const template = (strings, ...values) => 
-  new TemplateResult(strings, values, 'html', defaultTemplateProcessor)
 
 export class LitCustomElement extends HTMLElement {
 
@@ -24,8 +22,8 @@ export class LitCustomElement extends HTMLElement {
 
   constructor() {
     super()
-    this.attachShadow({ mode: 'open' })
 
+    this.attachShadow({ mode: 'open' })
     autoBind(this)
   }
 

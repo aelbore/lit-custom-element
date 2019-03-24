@@ -1,4 +1,5 @@
-import { LitCustomElement, Prop, template } from 'lit-custom-element';
+import { LitCustomElement, Prop } from 'lit-custom-element';
+import { html } from 'lit-html';
 
 class DecoratorPropsElement extends LitCustomElement {
 
@@ -6,7 +7,7 @@ class DecoratorPropsElement extends LitCustomElement {
   @Prop() age = 18;
 
   render() {
-    return template `
+    return html `
       <h1>Name: ${this.name}, age: ${this.age}</h1>
     `
   }

@@ -1,4 +1,5 @@
-import { LitCustomElement, template } from 'lit-custom-element';
+import { LitCustomElement } from 'lit-custom-element';
+import { html } from 'lit-html';
 
 class StaticPropsElement extends LitCustomElement {
 
@@ -11,7 +12,7 @@ class StaticPropsElement extends LitCustomElement {
   }
 
   render() {
-    return template `
+    return html `
       <h1>Hello ${this.message}</h1>
     `
   }

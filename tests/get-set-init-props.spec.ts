@@ -1,4 +1,5 @@
-import { LitCustomElement, html } from 'lit-custom-element'
+import { LitCustomElement } from 'lit-custom-element'
+import { html } from 'lit-html';
 
 describe('GetSetInitProps', () => {
   customElements.define('get-set-init-props', class extends LitCustomElement {

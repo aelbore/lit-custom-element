@@ -1,4 +1,5 @@
-import { LitCustomElement, html } from 'lit-custom-element'
+import { LitCustomElement } from 'lit-custom-element'
+import { html } from 'lit-html';
 
 class GetSetProps extends LitCustomElement {
 
