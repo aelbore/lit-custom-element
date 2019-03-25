@@ -1,5 +1,7 @@
 import * as path from 'path';
 
+import { litImportDeclationTransformer } from './lit-import-declation'
+
 const MODULE_NAME = 'lit-custom-element';
 const DEST_FOLDER = 'dist';
 
@@ -21,8 +23,11 @@ export const bundleConfigs = [
   {
     format: 'esm',
     file: path.join(DEST_FOLDER, `${MODULE_NAME}.js`),
-    external: [],
+    external: [ 'lit-html' ],
     declaration: true,
-    sourcemap: true
+    sourcemap: true,
+    tsBeforeTransformers: [
+      litImportDeclationTransformer()
+    ]
   }
 ]

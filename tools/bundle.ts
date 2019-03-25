@@ -24,14 +24,23 @@ interface RollupConfig {
   file?: string;
   external?: string[];
   sourcemap?: boolean;
-  declaration?: boolean ;
+  declaration?: boolean;
 }
 
 const rollupConfig = (configs: RollupConfig) => {
   const { format, file, external, sourcemap, declaration } = configs;
 
+  const transformers = [ 
+    () => ({
+      before: [ ],
+      /// @ts-ignore
+      after: [ ]
+    })
+  ]
+
   const plugins = [
     typescript2({
+      transformers: transformers,
       tsconfigDefaults: { 
         compilerOptions: { 
           target: 'es2015', 
