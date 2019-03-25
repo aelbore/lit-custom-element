@@ -1,4 +1,4 @@
-import { LitCustomElement, Prop, template } from 'lit-custom-element';
+import { LitCustomElement, Prop, html } from 'lit-custom-element';
 
 export class Counter extends LitCustomElement  {
 
@@ -9,7 +9,7 @@ export class Counter extends LitCustomElement  {
   }
 
   render() {
-    return template `
+    return html `
       <style>
         :host {
           display: inline-block;

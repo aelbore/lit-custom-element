@@ -1,4 +1,4 @@
-import { LitCustomElement, template } from 'lit-custom-element';
+import { LitCustomElement, html } from 'lit-custom-element';
 
 export class HelloWorld extends LitCustomElement  {
 
@@ -11,7 +11,7 @@ export class HelloWorld extends LitCustomElement  {
   }
 
   render() {
-    return template `<h1>Hello ${this.message}</h1>`
+    return html `<h1>Hello ${this.message}</h1>`
   }
 
 }
