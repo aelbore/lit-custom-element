@@ -30,17 +30,8 @@ interface RollupConfig {
 const rollupConfig = (configs: RollupConfig) => {
   const { format, file, external, sourcemap, declaration } = configs;
 
-  const transformers = [ 
-    () => ({
-      before: [ ],
-      /// @ts-ignore
-      after: [ ]
-    })
-  ]
-
   const plugins = [
     typescript2({
-      transformers: transformers,
       tsconfigDefaults: { 
         compilerOptions: { 
           target: 'es2015', 
@@ -61,7 +52,8 @@ const rollupConfig = (configs: RollupConfig) => {
     stripCode()
   ]  
 
-  if (format === 'umd') {
+  /// @ts-ignore
+  if (configs.minify) {
     plugins.push(terser())
   }
 

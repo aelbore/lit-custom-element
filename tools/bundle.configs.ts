@@ -1,7 +1,5 @@
 import * as path from 'path';
 
-import { litImportDeclationTransformer } from './lit-import-declation'
-
 const MODULE_NAME = 'lit-custom-element';
 const DEST_FOLDER = 'dist';
 
@@ -11,23 +9,22 @@ export const bundleConfigs = [
     file: path.join(DEST_FOLDER, 'bundles', `${MODULE_NAME}.umd.min.js`),
     external: [],
     declaration: true,
-    sourcemap: true
+    sourcemap: true,
+    minify: true
   }, 
   {
     format: 'esm',
     file: path.join(DEST_FOLDER, `${MODULE_NAME}.es.js`),
     external: [ 'lit-html' ],
-    declaration: false,
+    declaration: true,
     sourcemap: false
   },
   {
     format: 'esm',
     file: path.join(DEST_FOLDER, `${MODULE_NAME}.js`),
-    external: [ 'lit-html' ],
-    declaration: true,
+    external: [],
+    declaration: false,
     sourcemap: true,
-    tsBeforeTransformers: [
-      litImportDeclationTransformer()
-    ]
+    minify: true
   }
 ]
