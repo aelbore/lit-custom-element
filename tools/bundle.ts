@@ -24,7 +24,7 @@ interface RollupConfig {
   file?: string;
   external?: string[];
   sourcemap?: boolean;
-  declaration?: boolean ;
+  declaration?: boolean;
 }
 
 const rollupConfig = (configs: RollupConfig) => {
@@ -52,7 +52,8 @@ const rollupConfig = (configs: RollupConfig) => {
     stripCode()
   ]  
 
-  if (format === 'umd') {
+  /// @ts-ignore
+  if (configs.minify) {
     plugins.push(terser())
   }
 
