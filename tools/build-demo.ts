@@ -2,6 +2,8 @@ import * as path from 'path';
 import * as util from 'util';
 import * as fs from 'fs';
 
+import styleTransform from '../plugins/style-transform'
+
 import { terser } from 'rollup-plugin-terser';
 import { stripCode, rollupBuild } from './utils';
 import { globFiles, clean } from 'aria-fs';
@@ -21,6 +23,7 @@ const rollupConfig = ({ inputFile, outputFile }) => {
       input: inputFile,
       external: [],
       plugins: [
+        styleTransform(),
         typescript2({
           tsconfigDefaults: { 
             compilerOptions: { 
@@ -44,7 +47,11 @@ const rollupConfig = ({ inputFile, outputFile }) => {
         resolve(),
         stripCode(),
         terser()
-      ]
+      ],
+      onwarn (warning) {
+        if (warning.code === 'THIS_IS_UNDEFINED') { return; }
+        console.log("Rollup warning: ", warning.message);
+      }
     },
     outputOptions: {
       sourcemap: true,

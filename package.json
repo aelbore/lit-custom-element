@@ -8,7 +8,8 @@
     "aria": "aria",
     "build.tools": "ts-node --project tools/tsconfig.json ./node_modules/aria-tools/build.ts",
     "build.demo": "ts-node --project tools/tsconfig.json tools/build-demo.ts",
-    "bundle": "ts-node --project tools/tsconfig.json tools/bundle.ts",
+    "bundle": "ts-node --project tools/tsconfig.json tools/bundle.ts && npm run bundle.plugins",
+    "bundle.plugins": "ts-node --project tools/tsconfig.json tools/bundle.plugins.ts",
     "test": "aria test tests",
     "serve.coverage": "aria serve --test-coverage",
     "serve": "ts-node tools/server.ts",
@@ -36,10 +37,9 @@
     "@types/jasmine": "^3.3.12",
     "@types/karma": "^3.0.2",
     "@types/node": "^11.12.2",
-    "aria-tools": "0.0.3",
+    "aria-tools": "0.0.4",
     "coveralls": "^3.0.3",
     "lit-element": "^2.1.0",
-    "magic-string": "^0.25.2",
     "typescript": "^3.4.1"
   },
   "dependencies": {
