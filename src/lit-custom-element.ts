@@ -6,6 +6,19 @@ const renderTemplate = (rootElement: HTMLElement | ShadowRoot) => {
   render(rootElement.render(), rootElement.shadowRoot)
 }
 
+const addStyles = (rootElement: HTMLElement | ShadowRoot) => {
+  /// @ts-ignore
+  const styles = rootElement.constructor.styles
+  if (styles) {
+    const style = document.createElement('style')
+    style.textContent = Array.isArray(styles)
+      ? styles.join(' ')
+      : styles
+    /// @ts-ignore
+    rootElement.shadowRoot.prepend(style)   
+  } 
+}
+
 export { html }
 
 export class LitCustomElement extends HTMLElement {
@@ -91,7 +104,8 @@ export class LitCustomElement extends HTMLElement {
       }
     }
 
-    renderTemplate(this);    
+    renderTemplate(this);   
+    addStyles(this)
   }
 
 }

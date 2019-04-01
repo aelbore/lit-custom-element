@@ -16,22 +16,30 @@ Installation
 ```javascript
   import { LitCustomElement, html } from 'lit-custom-element'
 
-  class HelloName extends LitCustomElement {
+  class HelloWorld extends LitCustomElement {
 
-    get name() {
-      return this._name
+    get message() {
+      return this._message
     }
 
-    set name(value) {
-      this._name = value
-      this.onPropertyChanged('name', true)
+    set message(value) {
+      this._message = value
+      this.onPropertyChanged('message', true)
+    }
+
+    static get styles() {
+      return `
+        h1 { 
+          color: red;
+        }
+      `
     }
 
     render() {
-      return html `<h1>Hello ${this.name}!</h1>`
+      return html `<h1>Hello ${this.message}!</h1>`
     }
 
   }
 
-  customElements.define('hello-name', HelloName)
+  customElements.define('hello-world', HelloWorld)
 ```
