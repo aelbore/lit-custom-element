@@ -1,4 +1,5 @@
 import { LitCustomElement as CustomElement, html } from 'lit-custom-element'
+import './styles.spec.css'
 
 class HelloWorldStyles extends CustomElement {
 
@@ -15,10 +16,6 @@ class HelloWorldStyles extends CustomElement {
 
   render() {
     return html `<h1>Hello ${ this.message}</h1>`
-  }
-
-  static get styles() {
-    return `h1 { color: red }`
   }
 
 }

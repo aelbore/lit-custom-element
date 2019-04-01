@@ -1,4 +1,5 @@
 import { LitCustomElement, Prop, html } from 'lit-custom-element';
+import './counter.css'
 
 export class Counter extends LitCustomElement  {
 
@@ -10,22 +11,6 @@ export class Counter extends LitCustomElement  {
 
   render() {
     return html `
-      <style>
-        :host {
-          display: inline-block;
-        }
-        :host button {
-          width: 50px;
-          height: 50px;
-          color: white;
-          background-color: #000;
-          border: 0;
-          border-radius: 5px;
-          font-size: 20px;
-          outline: none;
-          cursor: pointer;
-        }  
-      </style>  
       <button id="count" @click=${this.incrementCount}>
         ${this.count}
       </button>
