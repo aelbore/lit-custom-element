@@ -4,13 +4,16 @@ const typescript2 = require('rollup-plugin-typescript2');
 const resolve = require('rollup-plugin-node-resolve');
 const commonjs =  require('rollup-plugin-commonjs')
 
-import { rollupBuild } from './utils';
+import { rollupBuild, typescript2Config } from './utils';
 import { clean } from 'aria-fs';
+
+const INPUT_FILE = 'plugins/inline-plugin.ts'
+const OUTPUT_FILE = 'dist/plugins/inline-plugin.js'
 
 const rollupConfig = {
   inputOptions: {
     treeshake: true,
-    input: path.resolve('plugins/style-transform.ts'),
+    input: INPUT_FILE,
     external: [
       'magic-string',
       'typescript',
@@ -18,29 +21,14 @@ const rollupConfig = {
       'fs'
     ],
     plugins: [
-      typescript2({
-        tsconfigDefaults: { 
-          compilerOptions: { 
-            target: 'es2015', 
-            module: 'esNext', 
-            moduleResolution: 'node',
-            declaration: true,
-            outDir: 'dist',
-            lib: [ "dom", "es2015", "es2017" ]
-          },
-          exclude: [ 'tests', 'examples', 'src', 'tools' ]
-        },
-        check: false,
-        cacheRoot: path.join(path.resolve(), 'node_modules/.tmp/.rts2_cache'), 
-        useTsconfigDeclarationDir: false
-      }),
+      typescript2(typescript2Config),
       resolve(),
       commonjs()   
     ]
   },
   outputOptions: {
     sourcemap: false,
-    file: 'dist/plugins/style-transform.js',
+    file: OUTPUT_FILE,
     format: 'cjs'
   }  
 }

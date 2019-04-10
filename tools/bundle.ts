@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import { terser } from 'rollup-plugin-terser';
 import { clean, mkdirp, globFiles } from 'aria-fs';
 
-import { stripCode, rollupBuild } from './utils';
+import { stripCode, rollupBuild, typescript2Config } from './utils';
 import { bundleConfigs } from './bundle.configs';
 
 const typescript2 = require('rollup-plugin-typescript2');

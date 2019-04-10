@@ -1,4 +1,6 @@
 import { LitCustomElement as CustomElement, html } from 'lit-custom-element'
+import './styles.spec.css'
+import './styles-array.spec.css'
 
 class HelloWorldArrayStyles extends CustomElement {
 
@@ -15,10 +17,6 @@ class HelloWorldArrayStyles extends CustomElement {
 
   render() {
     return html `<h1>Hello ${ this.message}</h1>`
-  }
-
-  static get styles() {
-    return [`h1 { color: red }`,`h2 { color: blue }`]
   }
 
 }
@@ -38,10 +36,9 @@ describe('HelloWorldArrayStyles', () => {
   })  
 
   it('should have styles static get accessor', () => {
-    const style: HTMLStyleElement = element.shadowRoot.querySelector('style');    
+    const style = element.shadowRoot.querySelector('style');    
     
-    expect(style).toBeDefined()
-    expect(style.textContent).toEqual('h1 { color: red } h2 { color: blue }')
+    expect(style).not.toBeNull()
   })
 
 })

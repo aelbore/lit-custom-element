@@ -1,7 +1,7 @@
-const styleTransform = require('./dist/plugins/style-transform')
+const { inlineCustomElement } = require('./dist/plugins/inline-plugin')
 
 module.exports = {
   rollupPlugins: [ 
-    styleTransform() 
+    inlineCustomElement() 
   ]
 }
