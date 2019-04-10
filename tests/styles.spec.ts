@@ -35,10 +35,8 @@ describe('HelloWorldStyles', () => {
   })  
 
   it('should have styles static get accessor', () => {
-    const style: HTMLStyleElement = element.shadowRoot.querySelector('style');
-    
-    expect(style).toBeDefined()
-    expect(style.textContent).toEqual('h1 { color: red }')
+    const style = element.shadowRoot.querySelector('style');
+    expect(style).not.toBeNull()
   })
 
 })

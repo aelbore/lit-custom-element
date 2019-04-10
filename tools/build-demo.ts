@@ -2,7 +2,8 @@ import * as path from 'path';
 import * as util from 'util';
 import * as fs from 'fs';
 
-import styleTransform from '../plugins/style-transform'
+import minifyHTML from 'rollup-plugin-minify-html-literals';
+import { inlineCustomElement } from '../dist/plugins/inline-plugin'
 
 import { terser } from 'rollup-plugin-terser';
 import { stripCode, rollupBuild } from './utils';
@@ -23,7 +24,8 @@ const rollupConfig = ({ inputFile, outputFile }) => {
       input: inputFile,
       external: [],
       plugins: [
-        styleTransform(),
+        minifyHTML(),
+        inlineCustomElement(),
         typescript2({
           tsconfigDefaults: { 
             compilerOptions: { 

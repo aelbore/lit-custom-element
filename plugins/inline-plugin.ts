@@ -3,10 +3,17 @@ import { join, resolve } from 'path'
 const MagicString = require('magic-string')
 const ts = require('typescript')
 
-import { transformer } from './style-transformer'
+import { inlineStyles } from './inline-transformer'
 
-const resolveId = importee => { if (importee.includes('.css')) return importee; return null }
-const loadById = id => { if (id.includes('.css')) return '';  return null }
+const resolveId = importee => { 
+  if (importee.includes('.css') || importee.includes('.scss')) return importee; 
+  return null 
+}
+
+const loadById = id => { 
+  if (id.includes('.css') || id.includes('.scss')) return '';  
+  return null 
+}
 
 const transfileModule = (filePath, code) => {
   const { outputText, sourceMapText } = ts.transpileModule(code, {
@@ -18,14 +25,18 @@ const transfileModule = (filePath, code) => {
       strictNullChecks: false,
       sourceMap: true
     },
-    transformers: { before: [ transformer(filePath) ] }
+    transformers: { 
+      before: [ 
+        inlineStyles(filePath) 
+      ] 
+    }
   }); 
   return { code: outputText, map: sourceMapText }
 }
 
-export default function styleTransform() {
+export function inlineCustomElement() {
   return {
-    name: 'styleTransform',    
+    name: 'inlineCustomElement',    
     resolveId: resolveId,
     load: loadById,
     transform (code, id) {  
