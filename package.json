@@ -32,6 +32,7 @@
   "typings": "lit-custom-element.d.ts",
   "devDependencies": {
     "aria-tools": "^0.0.5",
+    "coveralls": "^3.0.3",
     "lit-element": "^2.1.0",
     "typescript": "^3.4.5"
   },
