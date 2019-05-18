@@ -1,9 +1,8 @@
-import { bundle, TSRollupConfig, terser } from 'aria-build'
-import { clean } from 'aria-fs'
+import { bundle, TSRollupConfig, terser, clean } from 'aria-build'
 
 (async function() {
 
-  const options: Array<TSRollupConfig> = [
+  const options: TSRollupConfig[] = [
     {
       input: './src/index.ts',
       external: [

@@ -37,7 +37,7 @@
     "typescript": "^3.4.5"
   },
   "dependencies": {
-    "lit-html": "^1.0.0",
+    "lit-html": "^1.1.0",
     "magic-string": "^0.25.2"
   }
 }
