@@ -5,11 +5,9 @@
   "main": "lit-custom-element.js",
   "module": "lit-custom-element.es.js",
   "scripts": {
-    "aria": "aria",
+    "build": "ts-node tools/build",
+    "build.demo": "ts-node tools/build.demo",
     "build.tools": "ts-node --project tools/tsconfig.json ./node_modules/aria-tools/build.ts",
-    "build.demo": "ts-node --project tools/tsconfig.json tools/build-demo.ts",
-    "bundle": "ts-node --project tools/tsconfig.json tools/bundle.ts && npm run bundle.plugins",
-    "bundle.plugins": "ts-node --project tools/tsconfig.json tools/bundle.plugins.ts",
     "test": "aria test tests",
     "serve.coverage": "aria serve --test-coverage",
     "serve": "ts-node tools/server.ts",
@@ -33,18 +31,13 @@
   "homepage": "https://github.com/aelbore/lit-custom-element#readme",
   "typings": "lit-custom-element.d.ts",
   "devDependencies": {
-    "@types/express": "^4.16.1",
-    "@types/jasmine": "^3.3.12",
-    "@types/karma": "^3.0.2",
-    "@types/node": "^11.13.2",
-    "aria-tools": "0.0.4",
+    "aria-tools": "^0.0.5",
     "coveralls": "^3.0.3",
     "lit-element": "^2.1.0",
-    "node-sass": "^4.11.0",
-    "rollup-plugin-minify-html-literals": "^1.2.2",
-    "typescript": "^3.4.2"
+    "typescript": "^3.4.5"
   },
   "dependencies": {
-    "lit-html": "^1.0.0"
+    "lit-html": "^1.0.0",
+    "magic-string": "^0.25.2"
   }
 }
