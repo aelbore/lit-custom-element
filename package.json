@@ -31,10 +31,10 @@
   "homepage": "https://github.com/aelbore/lit-custom-element#readme",
   "typings": "lit-custom-element.d.ts",
   "devDependencies": {
-    "aria-tools": "^0.0.5",
+    "aria-tools": "^0.0.6",
     "coveralls": "^3.0.3",
     "lit-element": "^2.1.0",
-    "typescript": "^3.4.5"
+    "typescript": "^3.5.1"
   },
   "dependencies": {
     "lit-html": "^1.1.0",
