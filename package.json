@@ -10,7 +10,7 @@
     "build.hello.name": "aria-build -f umd --resolve --compress -i ./examples/hello-name/index.ts -o ./dist/hello-name",
     "build.hello.world": "aria-build -f es --resolve --compress -i ./examples/hello-world/index.ts -o ./dist/hello-world",
     "build.tools": "ts-node --project tools/tsconfig.json ./node_modules/aria-tools/build.ts",
-    "test": "aria-mocha --browser -d specs --check-coverage",
+    "test": "aria test --browser -d specs --resolve --check-coverage",
     "serve": "ts-node tools/server.ts",
     "coveralls": "cat ./coverage/lcovonly | ./node_modules/coveralls/bin/coveralls.js"
   },
