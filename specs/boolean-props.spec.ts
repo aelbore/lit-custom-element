@@ -1,0 +1,70 @@
+import { LitCustomElement } from '../src/lit-custom-element';
+import { html } from 'lit-html';
+
+import { assert, expect } from 'chai'
+
+class BooleanProps extends LitCustomElement {
+
+  checked;
+
+  static get props() {
+    return {
+      checked: false
+    }
+  }
+
+  render() {
+    return html `
+      <div class="${ this.checked ? 'checked': '' }"></div>
+    `
+  }
+
+}
+
+customElements.define('boolean-props', BooleanProps);
+
+describe('BooleanProps', () => {
+
+  let element: any;
+
+  beforeEach(() => {
+    element = document.createElement('boolean-props')
+    document.body.appendChild(element)
+  })
+
+  afterEach(() => {
+    document.body.removeChild(element);
+  })  
+
+  it('should have <boolean-props></boolean-props> element.', () => {
+    assert.ok(element)
+  })
+
+  it('should have attribute [checked]', () => {
+    expect(element.hasAttribute('checked')).to.be.true
+  })
+
+  it('should initialize attribute or property to default value.', () => {
+    expect(element.getAttribute('checked')).equal('false')
+    expect(element.checked).equal(false)
+  })
+
+  it('should have initialize attribute thru element create.', () => {
+    document.body.removeChild(element)
+
+    const template = document.createElement('template');
+    template.innerHTML = `<boolean-props checked="true"></boolean-props>`;
+    document.body.appendChild(document.importNode(template.content, true));
+
+    element = document.body.querySelector('boolean-props');
+    const shadowRoot = element.shadowRoot;
+
+    assert.ok(element)
+    assert.ok(shadowRoot)
+    expect(element.getAttribute('checked')).equal('true')
+    expect(typeof element.checked == 'boolean').to.be.true
+    expect(element.checked).equal(true)
+    expect(shadowRoot.querySelector('div').getAttribute('class')).contain('checked')
+  })
+
+})

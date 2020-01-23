@@ -5,10 +5,10 @@
   "main": "lit-custom-element.js",
   "module": "lit-custom-element.es.js",
   "scripts": {
-    "build": "ts-node tools/build",
+    "build": "aria-build -d --external magic-string,typescript",
     "build.demo": "ts-node tools/build.demo",
     "build.tools": "ts-node --project tools/tsconfig.json ./node_modules/aria-tools/build.ts",
-    "test": "aria test tests",
+    "test": "aria test --browser -d specs --check-coverage",
     "serve.coverage": "aria serve --test-coverage",
     "serve": "ts-node tools/server.ts",
     "coveralls": "cat ./coverage/lcovonly | ./node_modules/coveralls/bin/coveralls.js"
@@ -31,13 +31,13 @@
   "homepage": "https://github.com/aelbore/lit-custom-element#readme",
   "typings": "lit-custom-element.d.ts",
   "devDependencies": {
-    "aria-tools": "^0.0.6",
-    "coveralls": "^3.0.3",
-    "lit-element": "^2.1.0",
-    "typescript": "^3.5.1"
+    "aria-build": "^0.0.24",
+    "coveralls": "^3.0.9",
+    "lit-element": "^2.2.1",
+    "typescript": "^3.7.5"
   },
   "dependencies": {
-    "lit-html": "^1.1.0",
-    "magic-string": "^0.25.2"
+    "lit-html": "^1.1.2",
+    "magic-string": "^0.25.6"
   }
 }

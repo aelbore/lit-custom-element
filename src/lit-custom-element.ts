@@ -6,6 +6,12 @@ const renderTemplate = (rootElement: HTMLElement | ShadowRoot) => {
   render(rootElement.render(), rootElement.shadowRoot)
 }
 
+export const Prop = () => {
+  return (target, propName) => {
+    target.constructor.propDecorators[propName] = null;
+  }
+}
+
 export { html }
 
 export class LitCustomElement extends HTMLElement {
