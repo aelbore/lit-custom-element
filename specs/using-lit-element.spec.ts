@@ -1,6 +1,6 @@
 import { html } from 'lit-html'
 import { LitElement } from 'lit-element'
-import { LitCustomElement } from '../src/lit-custom-element'
+import { LitCustomElement } from 'lit-custom-element'
 
 import { expect, assert } from 'chai'
 

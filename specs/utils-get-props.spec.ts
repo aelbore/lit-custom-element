@@ -1,5 +1,4 @@
-import { getSetProps } from '../src/utils'
-
+import { getSetProps } from 'lit-custom-element'
 import { expect } from 'chai'
 
 class GetPropsSpec {

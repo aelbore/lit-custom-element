@@ -1,4 +1,4 @@
-import { LitCustomElement as CustomElement, html } from '../src/lit-custom-element'
+import { LitCustomElement as CustomElement, html } from 'lit-custom-element'
 import './styles.spec.css'
 
 import { expect } from 'chai'

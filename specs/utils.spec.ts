@@ -1,4 +1,4 @@
-import { tryParseValue } from '../src/utils'
+import { tryParseValue } from 'lit-custom-element'
 
 import { expect } from 'chai'
 
