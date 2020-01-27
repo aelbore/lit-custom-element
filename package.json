@@ -6,7 +6,7 @@
   "module": "lit-custom-element.es.js",
   "scripts": {
     "build": "aria-build -d --external magic-string,typescript",
-    "build.demo": "ts-node tools/build.demo",
+    "build.demo": "aria build -f es,umd --sourcemap inline --compress umd -i ./examples/counter/index.ts -o ./dist/counter",
     "build.tools": "ts-node --project tools/tsconfig.json ./node_modules/aria-tools/build.ts",
     "test": "aria test --browser -d specs --check-coverage",
     "serve.coverage": "aria serve --test-coverage",
