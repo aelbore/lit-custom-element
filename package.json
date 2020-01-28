@@ -6,12 +6,11 @@
   "module": "lit-custom-element.es.js",
   "scripts": {
     "build": "aria-build -d --external typescript",
-    "build.counter": "aria build -f umd --resolve --compress umd -i ./examples/counter/index.ts -o ./dist/counter",
-    "build.hello.name": "aria build -f umd --resolve --compress -i ./examples/hello-name/index.ts -o ./dist/hello-name",
-    "build.hello.world": "aria build -f es --resolve --compress -i ./examples/hello-world/index.ts -o ./dist/hello-world",
+    "build.counter": "aria-build -f umd --resolve --compress umd -i ./examples/counter/index.ts -o ./dist/counter",
+    "build.hello.name": "aria-build -f umd --resolve --compress -i ./examples/hello-name/index.ts -o ./dist/hello-name",
+    "build.hello.world": "aria-build -f es --resolve --compress -i ./examples/hello-world/index.ts -o ./dist/hello-world",
     "build.tools": "ts-node --project tools/tsconfig.json ./node_modules/aria-tools/build.ts",
-    "test": "aria test --browser -d specs --check-coverage",
-    "serve.coverage": "aria serve --test-coverage",
+    "test": "aria-mocha --browser -d specs --check-coverage",
     "serve": "ts-node tools/server.ts",
     "coveralls": "cat ./coverage/lcovonly | ./node_modules/coveralls/bin/coveralls.js"
   },
@@ -33,10 +32,13 @@
   "homepage": "https://github.com/aelbore/lit-custom-element#readme",
   "typings": "lit-custom-element.d.ts",
   "devDependencies": {
-    "aria-build": "^0.0.24",
+    "aria-build": "^0.1.0",
+    "aria-fs": "^0.1.0",
+    "aria-mocha": "^0.1.0",
+    "aria-mocha-headless": "^0.1.0",
     "coveralls": "^3.0.9",
     "lit-element": "^2.2.1",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.4"
   },
   "dependencies": {
     "lit-html": "^1.1.2",
