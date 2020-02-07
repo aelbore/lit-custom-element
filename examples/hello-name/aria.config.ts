@@ -10,7 +10,7 @@ export default {
     after: [  
       copy({
         targets: [
-          { src: './examples/counter/index.html', dest: './dist/counter' }
+          { src: './examples/hello-name/index.html', dest: './dist/hello-name' }
         ]
       })
     ]

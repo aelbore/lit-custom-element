@@ -5,8 +5,10 @@
   "main": "lit-custom-element.js",
   "module": "lit-custom-element.es.js",
   "scripts": {
-    "build": "aria-build -d --external magic-string,typescript",
-    "build.demo": "aria build -f es,umd --sourcemap inline --compress umd -i ./examples/counter/index.ts -o ./dist/counter",
+    "build": "aria-build -d --external typescript",
+    "build.counter": "aria build -f umd --resolve --compress umd -i ./examples/counter/index.ts -o ./dist/counter",
+    "build.hello.name": "aria build -f umd --resolve --compress -i ./examples/hello-name/index.ts -o ./dist/hello-name",
+    "build.hello.world": "aria build -f es --resolve --compress -i ./examples/hello-world/index.ts -o ./dist/hello-world",
     "build.tools": "ts-node --project tools/tsconfig.json ./node_modules/aria-tools/build.ts",
     "test": "aria test --browser -d specs --check-coverage",
     "serve.coverage": "aria serve --test-coverage",
