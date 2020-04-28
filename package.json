@@ -32,16 +32,16 @@
   "homepage": "https://github.com/aelbore/lit-custom-element#readme",
   "typings": "lit-custom-element.d.ts",
   "devDependencies": {
-    "aria-build": "^0.1.0",
-    "aria-fs": "^0.1.0",
-    "aria-mocha": "^0.1.0",
-    "aria-mocha-headless": "^0.1.0",
-    "coveralls": "^3.0.9",
-    "lit-element": "^2.2.1",
-    "typescript": "^3.7.4"
+    "aria-build": "^0.2.2",
+    "aria-fs": "^0.2.2",
+    "aria-mocha": "^0.2.2",
+    "aria-mocha-headless": "^0.2.2",
+    "coveralls": "^3.1.0",
+    "lit-element": "^2.3.1",
+    "typescript": "^3.8.3"
   },
   "dependencies": {
-    "lit-html": "^1.1.2",
-    "magic-string": "^0.25.6"
+    "lit-html": "^1.2.1",
+    "magic-string": "^0.25.7"
   }
 }
